@@ -61,7 +61,8 @@ class Mutations(ObjectType):
 
 class Query(ObjectType):
     brands = List(Brand, name=String())
-    brand = Field(Brand, id=Int(required=True))
+    # brand = Field(Brand, id=Int(required=True), name=String())
+    brand = Field(Brand, id=Int(), name=String())
     products = List(Product, name=String())
     product = Field(Product, id=Int(required=True))
 
@@ -72,8 +73,17 @@ class Query(ObjectType):
             return data.get_all_brands()
         return data.get_brands_by_name(name)
 
-    def resolve_brand(root, info, id):
-        return data.get_brand_by_id(id)
+    def resolve_brand(root, info, **kwargs):
+        id = kwargs.get('id')
+        name = kwargs.get('name')
+
+        if id is not None:
+            return data.get_brand_by_id(id)
+
+        if name is not None:
+            return data.get_brands_by_name(name)
+
+        return data.get_all_brands()
 
     def resolve_products(root, info, **kwargs):
         # kwargs, 0..* keyword arguments

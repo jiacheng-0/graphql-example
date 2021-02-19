@@ -62,3 +62,50 @@ GraphQL
 }
 ```
 
+Add mutation:
+
+```
+mutation {
+  addBrand(name: "BALENCIAGA") {
+    ok
+    brand {
+      id
+      name
+    }
+  }
+}
+```
+
+Add mutation with products:
+
+```
+mutation {
+  addBrand(name: "BALENCIAGA", products: [{name: "Shirt YOYO", price: 99, stock: 6}]) {
+    ok
+    brand {
+      id
+      name
+    }
+  }
+}
+```
+
+query products:
+
+```
+query {
+  brands {
+    id
+    name
+    products {
+      id
+      name
+      price
+      brand {
+        id
+      }
+      stock
+    }
+  }
+}
+```
