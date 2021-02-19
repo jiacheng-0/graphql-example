@@ -18,72 +18,75 @@ data = {
             "id": 1,
             "name": "Macbook Pro 16 inch",
             "price": 3000,
-            "brand": 1,
+            "brand_id": 1,
             "stock": 12,
-            "parent": None
+            "parent_id": None
         },
         {
             "id": 2,
             "name": "XPS 13",
             "price": 2800,
-            "brand": 3,
+            "brand_id": 3,
             "stock": 4,
-            "parent": None
+            "parent_id": None
         },
         {
             "id": 3,
             "name": "Matebook Pro",
             "price": 2300,
-            "brand": 2,
+            "brand_id": 2,
             "stock": 25,
-            "parent": None
+            "parent_id": None
         },
         {
             "id": 4,
             "name": "IPad Pro",
             "price": 1500,
-            "brand": 1,
+            "brand_id": 1,
             "stock": 3,
-            "parent": None
+            "parent_id": None
         },
         {
             "id": 5,
             "name": "Apple Pencil",
             "price": 200,
-            "brand": 1,
+            "brand_id": 1,
             "stock": 8,
-            "parent": 4
+            "parent_id": 4
         },
         {
             "id": 6,
             "name": "IDock",
             "price": 100,
-            "brand": 1,
+            "brand_id": 1,
             "stock": 80,
-            "parent": 1
+            "parent_id": 1
         },
         {
             "id": 7,
             "name": "The best IPad case",
             "price": 50,
-            "brand": 1,
+            "brand_id": 1,
             "stock": 100,
-            "parent": 4
+            "parent_id": 4
         }
     ]
 }
 
-def get_all_brands() :
+
+def get_all_brands():
     return data['brands']
 
-def get_brand_by_id(id) :
+
+def get_brand_by_id(id):
     for brand in data['brands']:
         if brand['id'] == id:
             return brand
 
     return None
 
-def get_brands_by_name(name) :
+
+def get_brands_by_name(name):
     output = []
 
     for brand in data['brands']:
@@ -92,6 +95,7 @@ def get_brands_by_name(name) :
 
     return output
 
+
 def add_brand(name):
     id = data['brands'][-1]['id'] + 1
     brand = {'id': id, 'name': name}
@@ -99,8 +103,10 @@ def add_brand(name):
     data['brands'].append(brand)
     return brand
 
-def get_all_products() :
+
+def get_all_products():
     return data['products']
+
 
 def get_product_by_id(id):
     for product in data['products']:
@@ -108,6 +114,7 @@ def get_product_by_id(id):
             return product
 
     return None
+
 
 def get_products_by_name(name):
     output = []
@@ -117,6 +124,7 @@ def get_products_by_name(name):
 
     return output
 
+
 def get_products_by_brand(brand_id):
     output = []
     for product in data['products']:
@@ -124,6 +132,7 @@ def get_products_by_brand(brand_id):
             output.append(product)
 
     return output
+
 
 def add_product(product):
     id = data['products'][-1]['id'] + 1
@@ -133,3 +142,15 @@ def add_product(product):
 
     data['products'].append(product)
     return product
+
+
+def get_product_full_details(id):
+    result_product = {}
+    for product in data['products']:
+        if product['id'] == id:
+            result_product = product
+
+    parent = get_product_by_id(result_product['parent_id'])
+    result_product['parent_id'] = parent
+
+    return result_product
