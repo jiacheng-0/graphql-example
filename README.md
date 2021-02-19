@@ -20,3 +20,45 @@ http://localhost:5000/products/5
 Full details:
 http://localhost:5000/products/5/details
 ```
+
+GraphQL
+
+```
+
+{
+  products {
+    id
+    name
+    price
+    stock
+    parent {
+      id
+      name
+    }
+  }
+}
+```
+
+```
+{
+  brands {
+    id
+    name
+  }
+}
+```
+
+```
+{
+  brand(id: 1) {
+    id
+    name
+    products {
+      name
+      price
+      stock
+    }
+  }
+}
+```
+
